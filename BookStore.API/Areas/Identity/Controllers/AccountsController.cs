@@ -1,9 +1,4 @@
-﻿using BookStore.API.Repositories;
-using BookStore.API.Utility;
-using BookStore.API.DTOs.Request;
-using BookStore.API.DTOs.Request;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 

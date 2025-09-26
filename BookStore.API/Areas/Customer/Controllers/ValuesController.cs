@@ -49,14 +49,14 @@ namespace BookStore.API.Areas.Customer.Controllers
             var retuenedBook = book.Adapt<BookResponse>();
 
 
-            var relatedBooks = (await _repositoryBook.GetAsync(e => e.AutherId == book.AutherId && e.Id != book.Id))
+            var relatedBooks = (await _repositoryBook.GetAsync(e => e.AutherId == book.AutherId && e.Id != book.Id, includes: [e => e.Auther]))
                 .Skip(0).Take(4);
 
             var mostRatedBooks = (await _repositoryBook.GetAsync(e => e.Id != book.Id))
                 .OrderByDescending(e => e.Rate).Skip(0).Take(4);
 
 
-            var similarBooks = (await _repositoryBook.GetAsync(e => e.Title.Contains(book.Title) && e.Id != book.Id))
+            var similarBooks = (await _repositoryBook.GetAsync(e => e.Title.Contains(book.Title) && e.Id != book.Id, includes: [e => e.Auther]))
                  .Skip(0).Take(4);
 
 
@@ -64,9 +64,9 @@ namespace BookStore.API.Areas.Customer.Controllers
             return Ok(new
             {
                 Book = retuenedBook,
-                RelatedBooks= relatedBooks,
-                MostRatedBooks= mostRatedBooks,
-                SimilarBooks= similarBooks
+                RelatedBooks= relatedBooks.Adapt<List<BookResponse>>(),
+                MostRatedBooks= mostRatedBooks.Adapt<List<BookResponse>>(),
+                SimilarBooks= similarBooks.Adapt<List<BookResponse>>()
             });
 
 
