@@ -3,4 +3,5 @@ global using BookStore.API.DataAccess;
 global using BookStore.API.DTOs.Request;
 global using BookStore.API.DTOs.Response;
 global using BookStore.API.Utility;
+global using BookStore.API.Repositories;
 

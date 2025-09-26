@@ -61,7 +61,7 @@ namespace BookStore.API.Areas.Identity.Controllers
         [HttpPatch("ChangePhoto")]
         public async Task<IActionResult> ChangePhoto(ChangePhotoRequest changePhotoRequest)
         {
-            var user = await _userManager.FindByIdAsync(changePhotoRequest.ApplicationUserId);
+            var user = await _userManager.GetUserAsync(User);
 
             if (user is null)
             {
@@ -120,7 +120,7 @@ namespace BookStore.API.Areas.Identity.Controllers
         public async Task<IActionResult> ChangePassword(ChangeProfilePasswordDTO changeProfilePasswordDTO)
         {
 
-            var user = await _userManager.FindByIdAsync(changeProfilePasswordDTO.ApplicationUserId);
+            var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
                 return NotFound(new ResponseErrorDTO
@@ -131,7 +131,9 @@ namespace BookStore.API.Areas.Identity.Controllers
 
                 });
             }
+
             var result = await _userManager.ChangePasswordAsync(user, changeProfilePasswordDTO.CurrentPassword, changeProfilePasswordDTO.Password);
+            
             if (!result.Succeeded)
             {
                 return BadRequest(new

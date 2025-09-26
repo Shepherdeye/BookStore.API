@@ -1,6 +1,7 @@
 ﻿using BookStore.API.Repositories;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 using System.Threading.Tasks;
 
 namespace BookStore.API.Areas.Admin.Controllers
@@ -32,6 +33,10 @@ namespace BookStore.API.Areas.Admin.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var book = await _bookRepository.GetOneAsync(e => e.Id == id, includes: [e => e.Auther]);
+            if (book is null)
+            {
+                return NotFound();
+            } 
 
             var returnedBook = book.Adapt<BookResponse>();
 
@@ -77,6 +82,7 @@ namespace BookStore.API.Areas.Admin.Controllers
             if (bookDB is null)
                 return NotFound();
 
+            //we set  the id  here  to make  it  update  not create a new one
             var book = bookRequestEdit.Adapt<Book>();
             book.Id = id;
 

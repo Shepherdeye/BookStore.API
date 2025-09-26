@@ -30,12 +30,12 @@ namespace BookStore.API
             }).AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
 
-            builder.Services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = "/Identity/Account/Login";
-                options.AccessDeniedPath = "/Customer/Home/NotFound";
+            //builder.Services.ConfigureApplicationCookie(options =>
+            //{
+            //    options.LoginPath = "/Identity/Account/Login";
+            //    options.AccessDeniedPath = "/Customer/Home/NotFound";
 
-            });
+            //});
 
             //for email sender
             builder.Services.AddTransient<IEmailSender, EmailSender>();
